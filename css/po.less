@@ -1,0 +1,815 @@
+// 变量区域--------------------------------;
+
+// 背景渐变
+.bg{
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,3e4069+63,1f244a+100 */
+	background: rgb(0,0,0); /* Old browsers */ /* FF3.6-15 */ /* Chrome10-25,Safari5.1-6 */
+	background: -webkit-linear-gradient(top,  rgb(0,0,0) 0%,rgb(62,64,105) 63%,rgb(31,36,74) 100%);
+	background: linear-gradient(to bottom,  rgb(0,0,0) 0%,rgb(62,64,105) 63%,rgb(31,36,74) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#1f244a',GradientType=0 ); /* IE6-9 */
+}
+
+.buttBg{
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#bf9c35+0,917728+23,917728+24,917728+24,e8cd7d+60,fce5a1+70,fce5a1+70,bf9c35+100 */
+background: rgb(191,156,53); /* Old browsers */ /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgb(191,156,53) 0%,rgb(145,119,40) 23%,rgb(145,119,40) 24%,rgb(145,119,40) 24%,rgb(232,205,125) 60%,rgb(252,229,161) 70%,rgb(252,229,161) 70%,rgb(191,156,53) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgb(191,156,53) 0%,rgb(145,119,40) 23%,rgb(145,119,40) 24%,rgb(145,119,40) 24%,rgb(232,205,125) 60%,rgb(252,229,161) 70%,rgb(252,229,161) 70%,rgb(191,156,53) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bf9c35', endColorstr='#bf9c35',GradientType=0 ); /* IE6-9 */
+
+}
+
+.t_sw{
+	text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.58);
+	text-decoration: none;
+	color: #fff;
+}
+
+@allheight 	: 600%;	// 定义天空总高度，必须％；修改此值需要同时更改动画css的高度
+@uhe 		: 80px;	// header高度；
+@uhe_pad 	: 10px; // 版心宽度；
+@uhe_br 	: 3px; //头像边框宽；
+@bgtimeNo 	: 10;	//流星飞行总时间
+@bgtime 	: 10s; //流星飞行总时间
+
+// 变量区域--------------------------------;
+
+
+// CSS开始
+a,a:hover 	{text-decoration: none; cursor: pointer; color: #fff;}
+html,body 	{width: 100%;height: 100%; font-size: 14px; color: #fff; background-color: #292D54;}
+img 		{width: 100%;}
+
+.userheader{
+	width: 100%;
+	height: @uhe;
+	position: fixed;
+	z-index: 999;
+	top: 0px;
+	left: 0px;
+
+	div{margin: @uhe_pad;float: left;line-height: 1em;}
+
+	.user_pic{
+		width: @uhe - (@uhe_pad * 2) - (@uhe_br * 2);
+		height: @uhe - (@uhe_pad * 2) - (@uhe_br * 2);
+		border-radius: 50%;
+		border: @uhe_br solid #fff;
+		box-shadow: 1px 1px 2px #000;
+		overflow: hidden;
+		img{
+			width: 100%;
+		}
+	}
+
+	.user_name{
+		width: 50%;
+		margin-left: @uhe_pad;
+		font-weight: bold;
+
+		margin-left: 0;
+		margin-right: 0;
+		.t_sw
+	}
+
+	.provision{
+		float: right;
+		margin-left: 0;
+		a {
+			.t_sw
+		}
+	}
+
+	.user_name,.provision{
+		margin-top: 30px;
+	}
+
+
+
+
+}
+
+.otherinf{
+	position: fixed;
+	z-index: 999;
+	width: 100%;
+	bottom: @uhe_pad;
+	a {
+		margin-left: @uhe_pad;
+		.t_sw;
+	}
+
+
+}
+
+
+
+// 主动画场景式样－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+//动画状态class，于.stage 添加。
+	// pop_ready 初始页面，有抽奖机会
+	// pop_nochance 初始页面单没有抽奖机会
+	// pop_run 动画播放
+	// pop_get 中奖
+
+
+// 素材尺寸表
+.pop_stage{
+	.bgD	{width: 100%;}
+	.f1 	{width:150px;}
+	.f2 	{width: 152px;}
+	.f3 	{width: 112px;}
+	.f4 	{width: 91px;}
+	.bgT 	{width: 100%;}
+	.lstar	{width: 100%;}
+
+	.earth	{width: 100%;}
+	.plain 	{width: 156px;}
+	.cloud1	{width: 243px;}
+	.cloud2	{width: 367px;}
+	.cloud3	{width: 314px;}
+	.cloud4	{width: 263px;}
+	.balloon{width: 107px;}
+	.cloud5 {width: 540px;}
+
+	.pop_logo	{width: 268px;}
+	.starlingtA,.starlingtB	{width: 25px;}
+	.starclick	{width: 155px;}
+	.starget 	{width: 88px;}
+	.arrow		{width: 26px;}
+	.airstarA,.airstarB {width: 120%;}
+}
+
+//无状态基础
+.pop_stage{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	left: 0px;
+	.pop_bg{
+		width: 100%;
+		height: @allheight;
+		position: absolute;
+		z-index: 1;
+		.bg
+	}
+
+	.star{
+		// display: none;
+		position: absolute;
+		z-index: 888;
+		@sZie: 88px;
+		width: @sZie;
+		height: @sZie;
+		top: 45%;
+		left: 50%;
+		margin-left: -(@sZie / 2);
+		cursor: pointer;
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-touch-callout: none;
+
+		div{
+			position: absolute;
+		}
+
+		.starlingtA,.starlingtB{
+			width: 25px;
+			height: 114px;
+			bottom: 39px;
+    		left: 31px;
+		}
+
+		.starclick{
+			opacity: 0;
+			width: 155px;
+			height: 155px;
+			top: -37px;
+    		left: -33px;
+		}
+
+		.arrow{
+			display: none;
+			width: 16px;
+			bottom: 40px;
+		    -webkit-transform: rotate(-18deg);
+		            -ms-transform: rotate(-18deg);
+		        transform: rotate(-18deg);
+			    @media (max-width: 414px){
+			    	width: 30px;
+					left: -35px;
+
+			    }
+			    @media (max-width: 330px){
+			    	width: 20%;
+			    	left: -14px;
+			    }
+		}
+
+	}
+
+	.pop_gametext{
+		opacity: 0;
+		-webkit-transition-property: opacity,top;
+		transition-property: opacity,top;
+		-webkit-transition-duration: .5s;
+		        transition-duration: .5s;
+		-webkit-transition-timing-function: ease-in-out;
+		        transition-timing-function: ease-in-out;
+		-webkit-transition-delay: 0s;
+		        transition-delay: 0s;
+		width: 100%;
+		text-align: center;
+		color: #fff;
+		top: @uhe + 20;
+		line-height: 2;
+			@media (max-width: 414px){
+		    	font-size: 22px;
+		    }
+		    @media (max-width: 330px){
+		    	font-size: 18px;
+		    }
+	}
+}
+
+.pop_bg{
+	div,li {opacity: 0;display: none;}
+	div,li {position: absolute;z-index: 2;}
+}
+
+.pop_gametext,.pop_logo{
+	position: absolute;
+	opacity: 0;
+	z-index: 777;
+}
+
+
+.star{
+
+	.starlingtA,.starlingtB{
+		-webkit-animation: starlingt .4s cubic-bezier(0.26, 0.25, 1, 0.64) 0s infinite normal;
+		        animation: starlingt .4s cubic-bezier(0.26, 0.25, 1, 0.64) 0s infinite normal
+	}
+
+	.starlingtA{-webkit-animation-delay:0s;animation-delay:0s;}
+	.starlingtB{-webkit-animation-delay:.2s;animation-delay:.2s;}
+	
+	.starlingtB div{
+		-webkit-transform: rotateY(180deg);
+		        transform: rotateY(180deg);
+	}
+
+	.starget{
+		-webkit-animation: starget .1s linear 0s infinite alternate;
+		        animation: starget .1s linear 0s infinite alternate;
+			img{
+				-webkit-animation: stargetRu .5s linear 0s infinite normal;
+				        animation: stargetRu .5s linear 0s infinite normal;
+			}
+
+	}
+
+}
+
+.pop_stage{
+	.pop_Results{
+		width: 300px;
+		height: 182px;
+		background-color: rgba(1, 1, 2, 0.71);
+		-webkit-backdrop-filter: blur(6px);
+		border-radius: 10px;
+		border: 2px solid #be9b34;
+		position: fixed;
+		top: 100%;
+		left: 50%;
+		margin-top: -(182px / 2);
+		margin-left: -(300px / 2);
+		z-index: 999;
+		text-align: center;
+		box-shadow:  0px -8px 51px #2B1F88 inset, 1px 5px 6px rgba(0, 0, 0, 0.4);
+		opacity: 0;
+		-webkit-animation-name: pop_Results;
+		        animation-name: pop_Results;
+		-webkit-animation-duration: 1s;
+		        animation-duration: 1s;
+		-webkit-animation-timing-function: ease-out;
+		        animation-timing-function: ease-out;
+		-webkit-animation-delay: @bgtime + 2.5 ;
+		        animation-delay: @bgtime + 2.5 ;
+		-webkit-animation-iteration-count: 1;
+		        animation-iteration-count: 1;
+		-webkit-animation-direction: normal;
+		        animation-direction: normal;
+		-webkit-animation-play-state: paused;
+		        animation-play-state: paused;
+		-webkit-animation-fill-mode: forwards;
+		        animation-fill-mode: forwards;
+		
+	}
+
+}
+
+.pop_Results{
+	
+
+
+	button{
+		display: block;
+		margin: 0 auto;
+		.buttBg;
+		width: 240px;
+		height: 35px;
+		border-radius: 3px;
+		border: 2px solid #A78728;
+		color: #fff;
+		font-size: 18px;
+		font-weight: bold;
+		text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.65);
+		box-shadow: 0px -2px 10px #FBD868 inset;
+		margin: 10px auto;
+		cursor: pointer;
+		:hover{
+			border: 2px solid #E0AB0D;
+		}
+	}
+
+	.roll_false{display: block;}
+	.roll_true{display: none;}
+
+	.roll_true{
+		h1{
+			font-size: 32px;
+			line-height: 60px;
+			margin-top: 15px;
+			color: #be9b34;
+			font-weight: normal;
+			text-shadow: 0px 0px 15px rgb(28, 8, 202);
+		}
+
+		span {
+			text-decoration: underline;
+		}
+	}
+
+	.roll_false{
+		font-size: 24px;
+		line-height: 35px;
+		margin-top: 24px;
+	}
+
+	
+}
+
+.pop_get{
+		opacity: 1;
+		display: block;
+		.roll_true{display: block;}
+		.roll_false{display: none;}
+	}
+
+
+// pop_ready 初始页面，有抽奖机会 ///////////////////////////////////////////////////////////////////////////////
+
+.pop_ready{
+	.pop_bg{
+		top: 0%;
+		-webkit-animation-name: pop_bg;
+		        animation-name: pop_bg;
+		-webkit-animation-duration: @bgtime;
+		        animation-duration: @bgtime;
+		-webkit-animation-timing-function: ease-in-out;
+		        animation-timing-function: ease-in-out;
+		-webkit-animation-delay: 0s;
+		        animation-delay: 0s;
+		-webkit-animation-iteration-count: 1;
+		        animation-iteration-count: 1;
+		-webkit-animation-direction: normal;
+		        animation-direction: normal;
+		-webkit-animation-play-state: paused;
+		        animation-play-state: paused;
+		-webkit-animation-fill-mode: forwards;
+		        animation-fill-mode: forwards;
+		display: block;
+	}
+
+	.airstarA,.airstarB{
+		display: none;
+	}
+
+	.pop_gametext{
+		opacity: 1;
+	}
+
+	.lstar{
+		opacity: 1;
+		display: block;
+		top: 0px;
+	}
+
+	.star{
+		opacity: 1;
+		z-index: 888;
+	}
+
+	.pop_logo{
+		opacity: 1;
+		-webkit-filter: blur(0px);		filter: blur(0px);
+		width: 268px;
+		left: 50%;
+		-webkit-transition-property: opacity, -webkit-filter;
+		transition-property: opacity, -webkit-filter;
+		-webkit-transition-duration: 2s;
+		        transition-duration: 2s;
+		-webkit-transition-timing-function: ease-in-out;
+		        transition-timing-function: ease-in-out;
+		-webkit-transition-delay: 0s;
+		        transition-delay: 0s;
+		margin-left: -(268px / 2);
+			@media (max-width: 414px){
+		    	bottom: 90px;
+		    }
+		    @media (max-width: 330px){
+		    	bottom: 40px;
+		    	width: 200px;
+		    	margin-left: -(200px / 2);
+		    }	
+	}
+
+	ul .earth{
+		display: block;
+		opacity: 1;
+			@media (max-width: 414px){
+		    	top: 12%;
+		    }
+		    @media (max-width: 330px){
+		    	top: 12%;
+		    }
+	}
+
+
+}
+
+// pop_run 动画播放//////////////////////////////////////////////////////////////////////////////////////////
+
+.pop_run{
+
+	.pop_bg{
+		will-change: transform;
+		-webkit-animation-play-state: running;
+		        animation-play-state: running;
+		div,li{
+			display: block;
+			opacity: 1;
+			will-change: transform;
+		}
+
+	}
+
+	.pop_Results{
+		-webkit-animation-play-state: running;
+		        animation-play-state: running;
+	}
+
+	.POP_get {
+		.roll_false{
+			display: none;
+		}
+
+		.roll_true{
+			display: block;
+		}
+	}
+
+	.pop_gametext{
+	opacity: 0;
+	top: 20px;
+	}
+
+	.arrow{
+		display: none;
+	}
+
+	.pop_logo{
+		opacity: 0;
+		-webkit-filter: blur(5px);		filter: blur(5px);
+
+	}
+
+	// .pop_bg{
+	// 	top: -(@allheight - 100%);
+	// }
+
+	.bgD,.bgT{
+		bottom: 0;
+		opacity: 1;
+		display: block;
+	}
+
+	.airstarA{-webkit-transform: rotate(167deg);-ms-transform: rotate(167deg);transform: rotate(167deg); -webkit-animation-duration: .6s; animation-duration: .6s;-webkit-animation-delay: 1s;animation-delay: 1s;	opacity: 0.8;}
+	.airstarB{-webkit-transform: rotate(12deg);-ms-transform: rotate(12deg);transform: rotate(12deg); -webkit-animation-duration: 1.2s; animation-duration: 1.2s;-webkit-animation-delay: 1.8s;animation-delay: 1.8s; opacity: 0.3;}
+
+
+
+	.airstarA,.airstarB{
+		display: block;
+		opacity: 0;
+		width: 120%;
+		top: 0%;
+		position: absolute;
+		-webkit-animation-name: airstar;
+		        animation-name: airstar;
+		-webkit-animation-timing-function: linear;
+		        animation-timing-function: linear;
+		        // 设定星星飘过次数，底部就完毕。
+        -webkit-animation-iteration-count: round((@bgtimeNo / 2),0);
+                -webkit-animation-iteration-count: round((@bgtimeNo / 2),0);
+                        animation-iteration-count: round((@bgtimeNo / 2),0);
+		-webkit-animation-direction: normal;
+		        animation-direction: normal;
+		-webkit-animation-play-state: running;
+		        animation-play-state: running;
+		-webkit-animation-fill-mode: forwards;
+		        animation-fill-mode: forwards;
+		z-index: 777;
+	}
+
+	//天空元素布置
+	@plain_T	:0.23;
+	@cloud1_T	:0.39;
+	@cloud2_T	:0.48;
+	@cloud3_T	:0.493;
+	@cloud4_T	:0.59;
+	@balloon_T	:0.72;
+	@cloud5_T	:0.78;
+	@p_text1_T	:0.37;
+	@p_text2_T	:0.65;
+
+	.pop_bg ul{
+		// .earth		{top: 00 %}  //pop_ready已含此属性
+
+
+		.plain		{top: percentage(@plain_T); left: -50%;}
+		.cloud1		{top: percentage(@cloud1_T); right: -22%;}
+		.cloud2		{top: percentage(@cloud2_T); left: -38%; opacity: .8;}
+		.cloud3		{top: percentage(@cloud3_T); left: 23%; opacity: .4;}
+		.cloud4		{top: percentage(@cloud4_T); left: 9%;}
+		.balloon	{top: percentage(@balloon_T); right: 0%;}
+		.cloud5		{top: percentage(@cloud5_T); left: 0%;}
+		.p_text1	{top: percentage(@p_text1_T); left: 0%;}
+		.p_text2	{top: percentage(@p_text2_T); left: 0%;}
+	}
+
+	.p_text1,.p_text2{
+		width: 100%;
+		text-align: center;
+			@media (max-width: 450px){
+		    	font-size: 24px;
+		    }
+		    @media (max-width: 330px){
+		    	font-size: 16px;
+		    }
+		color: #fff;
+		letter-spacing:2px;
+	}
+
+	.plain,
+	.cloud1,
+	.cloud2,
+	.cloud3,
+	.cloud4,
+	.balloon,
+	.cloud5,
+	.p_text1,
+	.p_text2{
+			-webkit-animation-duration: 6s;
+			        animation-duration: 6s;
+			-webkit-animation-timing-function: cubic-bezier(0, 0, 0.28, 0.97);
+			        animation-timing-function: cubic-bezier(0, 0, 0.28, 0.97);
+			-webkit-animation-iteration-count: 1;
+			        animation-iteration-count: 1;
+			-webkit-animation-direction: normal;
+			        animation-direction: normal;
+			-webkit-animation-play-state: running;
+			        animation-play-state: running;
+			-webkit-animation-fill-mode:forwards;
+			        animation-fill-mode:forwards;
+	}
+
+	@fixtime : -1.5s; // 速度修正量；
+
+	.plain		{-webkit-animation-name: plain;animation-name: plain; -webkit-animation-delay: @fixtime + (@bgtime * @plain_T); animation-delay: @fixtime + (@bgtime * @plain_T);}
+	// .cloud1		{-webkit-animation-name: myfirst;animation-name: myfirst; -webkit-animation-delay: 2s; animation-delay: 2s;}
+	.cloud2		{-webkit-animation-name: cloud2;animation-name: cloud2; -webkit-animation-delay: @fixtime + (@bgtime * @cloud2_T); animation-delay: @fixtime + (@bgtime * @cloud2_T);}
+	.cloud3		{-webkit-animation-name: cloud3;animation-name: cloud3; -webkit-animation-delay: @fixtime + (@bgtime * @cloud3_T); animation-delay: @fixtime + (@bgtime * @cloud3_T);}
+	// .cloud4		{-webkit-animation-name: myfirst;animation-name: myfirst; -webkit-animation-delay: 2s; animation-delay: 2s;}
+	.balloon	{-webkit-animation-name: balloon;animation-name: balloon; -webkit-animation-delay: @fixtime + (@bgtime * @balloon_T); animation-delay: @fixtime + (@bgtime * @balloon_T);}
+	.cloud5		{-webkit-animation-name: cloud5;animation-name: cloud5; -webkit-animation-delay: @fixtime + (@bgtime * @cloud5_T); animation-delay: @fixtime + (@bgtime * @cloud5_T);}
+	.p_text1	{-webkit-animation-name: p_text;animation-name: p_text; -webkit-animation-delay: @fixtime + (@bgtime * @p_text1_T); animation-delay: @fixtime + (@bgtime * @p_text1_T);}
+	.p_text2	{-webkit-animation-name: p_text;animation-name: p_text; -webkit-animation-delay: @fixtime + (@bgtime * @p_text2_T); animation-delay: @fixtime + (@bgtime * @p_text2_T);}
+
+	// 烟火播放
+
+	.f1{-webkit-animation-delay: @bgtime + .8s;animation-delay: @bgtime + .8s; -webkit-animation-duration: 2.2s; animation-duration: 2.2s; bottom: 1.8%; left: 4%;}
+	.f2{-webkit-animation-delay: @bgtime + .6s;animation-delay: @bgtime + .6s; -webkit-animation-duration: 2.3s; animation-duration: 2.3s; bottom: 2%; left: 32%;}
+	.f3{-webkit-animation-delay: @bgtime + .4s;animation-delay: @bgtime + .4s; -webkit-animation-duration: 2.5s; animation-duration: 2.5s; bottom: 5%; right: 0%;}
+	.f4{-webkit-animation-delay: @bgtime + .3s;animation-delay: @bgtime + .3s; -webkit-animation-duration: 2.6s; animation-duration: 2.6s; bottom: 3%; right: 11%;}
+
+	.f1,
+	.f2,
+	.f3,
+	.f4{
+		opacity: 0;
+		-webkit-animation-name: firework;
+		        animation-name: firework;
+		-webkit-animation-timing-function: linear;
+		        animation-timing-function: linear;
+		-webkit-animation-iteration-count: infinite;
+		        animation-iteration-count: infinite;
+		-webkit-animation-direction: normal;
+		        animation-direction: normal;
+		-webkit-animation-play-state: running;
+		        animation-play-state: running;
+		-webkit-animation-fill-mode:backwards;
+		        animation-fill-mode:backwards;
+	}
+
+	.star{
+
+		will-change: left, top;
+		-webkit-animation-name: starend;
+		        animation-name: starend;
+		-webkit-animation-delay: @bgtime - 1;
+		        animation-delay: @bgtime - 1;
+		-webkit-animation-duration: 3s;
+		        animation-duration: 3s;
+		-webkit-animation-timing-function: ease-in-out;
+		        animation-timing-function: ease-in-out;
+		-webkit-animation-iteration-count: 1;
+		        animation-iteration-count: 1;
+		-webkit-animation-direction: normal;
+		        animation-direction: normal;
+		-webkit-animation-fill-mode:forwards;
+		        animation-fill-mode:forwards;
+		-webkit-transition-property: transform;
+				-webkit-transition-property: -webkit-transform;
+				transition-property: -webkit-transform;
+				transition-property: transform;
+				transition-property: transform, -webkit-transform;
+		-webkit-transition-duration: .5s;
+		        transition-duration: .5s;
+		-webkit-transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+		        transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+		-webkit-transition-delay: 0s;
+		        transition-delay: 0s;
+
+	}
+
+	.pop_logo{
+	    opacity: 0;
+		-webkit-animation-name: pop_logo_over;
+		        animation-name: pop_logo_over;
+			@media (max-width: 450px){
+				-webkit-animation-name: pop_logo_over_hd;
+				        animation-name: pop_logo_over_hd;
+		    }
+		    @media (max-width: 330px){
+				-webkit-animation-name: pop_logo_over;
+				        animation-name: pop_logo_over;
+		    }
+		-webkit-animation-delay: @bgtime + .5;
+		        animation-delay: @bgtime + .5;
+		-webkit-animation-duration: 1.5s;
+		        animation-duration: 1.5s;
+		-webkit-animation-timing-function: ease-in-out;
+		        animation-timing-function: ease-in-out;
+		-webkit-animation-iteration-count: 1;
+		        animation-iteration-count: 1;
+		-webkit-animation-direction: normal;
+		        animation-direction: normal;
+		-webkit-animation-fill-mode:forwards;
+		        animation-fill-mode:forwards;
+	}
+
+	.starclick{
+
+		opacity: 1;
+		-webkit-animation-duration: .6s;
+		        animation-duration: .6s;
+		-webkit-animation-timing-function: ease-out;
+		        animation-timing-function: ease-out;
+		-webkit-animation-delay: 0s;
+		        animation-delay: 0s;
+		-webkit-animation-iteration-count: 1;
+		        animation-iteration-count: 1;
+		-webkit-animation-direction: normal;
+		        animation-direction: normal;
+		-webkit-animation-play-state: running;
+		        animation-play-state: running;
+		// animation-fill-mode : forwards;
+
+		
+	}
+
+}
+
+.starclick_cl{
+	.starclick{
+			-webkit-animation-name: starclick;
+			        animation-name: starclick;
+		}
+	.starget img{
+		-webkit-animation-duration: 0.1s;
+		        animation-duration: 0.1s;
+	}
+
+}
+
+
+
+
+
+
+	// pop_nochance 初始页面单没有抽奖机会 ///////////////////////////////////////////////////////////////////
+
+
+.pop_nochance{
+	.pop_gametext,ul li,.star,.airstarA,.airstarB{display: none;}
+	.pop_bg{
+		top: -600% + 100;
+		> div {
+			display: block;
+			opacity: 1;
+			position: absolute;
+		}
+	}
+	.pop_Results{
+		display: block;
+		opacity: 1;
+		top: 56%;
+	}
+
+	.f1{-webkit-animation-delay: .8s;animation-delay: .8s; -webkit-animation-duration: 2.2s; animation-duration: 2.2s; bottom: 1.8%; left: 4%;}
+	.f2{-webkit-animation-delay:  .6s;animation-delay:  .6s; -webkit-animation-duration: 2.3s; animation-duration: 2.3s; bottom: 2%; left: 32%;}
+	.f3{-webkit-animation-delay:  .4s;animation-delay:  .4s; -webkit-animation-duration: 2.5s; animation-duration: 2.5s; bottom: 5%; right: 0%;}
+	.f4{-webkit-animation-delay:  .3s;animation-delay:  .3s; -webkit-animation-duration: 2.6s; animation-duration: 2.6s; bottom: 3%; right: 11%;}
+
+	.f1,
+	.f2,
+	.f3,
+	.f4{
+		opacity: 0;
+		-webkit-animation-name: firework;
+		        animation-name: firework;
+		-webkit-animation-timing-function: linear;
+		        animation-timing-function: linear;
+		-webkit-animation-iteration-count: infinite;
+		        animation-iteration-count: infinite;
+		-webkit-animation-direction: normal;
+		        animation-direction: normal;
+		-webkit-animation-play-state: running;
+		        animation-play-state: running;
+		-webkit-animation-fill-mode:backwards;
+		        animation-fill-mode:backwards;
+	}
+
+	.bgD,.bgT{
+		bottom: 0;
+		left: 0;
+	}
+
+	.pop_logo{
+		display: block;
+		opacity: 1;
+		left: 50%;
+		margin-top: @uhe + 10;
+		@media (max-width: 450px){
+			width: 260px;
+			margin-left: -260px /2
+	    }
+	    @media (max-width: 330px){
+	    	width: 150px;
+	    	margin-top: @uhe;
+	    	margin-left: -150px /2
+
+	    }
+	}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
